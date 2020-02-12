@@ -131,25 +131,38 @@ Node* Rsearch(Node* p, int key)
     else
         return Rsearch(p->next, key);
 }
-void Insert(Node* first,int pos,Node *p)
-{
-    if (pos == 0)
-    {
-        p->next = first;
-        first = p;
-    }
-    if (pos > 0)
-    {
-        for (int i = 0; i < pos - 1; i++)
+void insertatHead(Node**first,Node*p){
+p->next=*first;
+*first=p;
+}
+void insertatMid(Node*first,int pos,Node*p){
+ for (int i = 0; i < pos - 1; i++)
         {
-            first = first->next;
+           first = first->next;
 
         }
         p->next = first->next;
-        first->next = p;
+        first->next = p;}
+void Insert(Node** first,int pos,Node *p)
+{
+    if (pos == 0)
+    {insertatHead(first,p);
+       // p->next = first;
+       // first = p;
+    }
+    if (pos > 0)
+    {insertatMid(*first,pos,p);
+       // for (int i = 0; i < pos - 1; i++)
+       // {
+        //    first = first->next;
+
+       // }
+       // p->next = first->next;
+        //first->next = p;
 
     }
 }
+
 int main()
 {
     int n;
@@ -169,7 +182,7 @@ int main()
     cout << "The summation of the data's of node is:" <<endl<<Rsearch(head,3) << endl;
     Node* p = new Node;
     p->data = 23;
-    Insert(head, 0, p);
+    Insert(&head, 0, p);
     Display(head);
 
    
