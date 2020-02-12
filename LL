@@ -1,0 +1,195 @@
+// LinkedList.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+using namespace std;
+class Node
+{
+public:
+    int data;
+    Node *next;
+}*first=NULL;
+void fillArray(int *arr, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+}
+void displayArray(int* arr, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout<<arr[i]<<endl;
+    }
+}
+Node *create(int *arr,int n)
+{
+    Node* t, * last;
+    Node *first = new Node();
+    first->data = arr[0];
+    first->next = NULL;
+    last = first;
+    for (int i = 1; i < n; i++)
+    {
+        Node* t = new Node();
+        t->data = arr[i];
+        t->next = NULL;
+        last->next = t;
+        last = t;
+    }
+    return first;
+
+
+
+}
+void Display( Node* p)
+{
+    while (p != NULL)
+    {
+        cout << p->data << endl;
+        p = p->next;
+    }
+}
+int count(Node* p)
+{
+    int count = 0;
+    while (p != 0)
+    {
+        count++;
+        p = p->next;
+    }
+    return count;
+}
+int Rcount(Node* p)
+{
+   
+    if (p == NULL)
+        return 0;
+    else
+    return count(p->next)+1;
+}
+int add(Node* p)
+{
+    int add = 0;
+    while (p != 0)
+    {
+        add += p->data;
+        p = p->next;
+    }
+    return add;
+}
+int Radd(Node* p)
+{
+    
+    if (p == NULL)
+        return 0;
+    else
+        return Radd(p->next) + p->data;
+        
+}
+int max(Node* p)
+{
+    int max = -32678;
+    while (p != 0) {
+        if (p->data > max)
+            max = p->data;
+        p = p->next;
+        
+
+
+    }
+    return max;
+
+}
+int Rmax(Node* p)
+{
+    if (p == 0)
+        return INT16_MIN;
+    int x = Rmax(p->next);
+    if (x > p->data)
+        return x;
+    else
+        return p->data;
+}
+Node* search(Node* p, int key)
+{
+    while (p != 0)
+    {
+        if (key == p->data)
+            return p;
+        p = p->next;
+    }
+    return NULL;
+}
+Node* Rsearch(Node* p, int key)
+{
+    if (p == NULL)
+        return NULL;
+    if (key == p->data)
+        return p;
+    else
+        return Rsearch(p->next, key);
+}
+void Insert(Node* first,int pos,Node *p)
+{
+    if (pos == 0)
+    {
+        p->next = first;
+        first = p;
+    }
+    if (pos > 0)
+    {
+        for (int i = 0; i < pos - 1; i++)
+        {
+            first = first->next;
+
+        }
+        p->next = first->next;
+        first->next = p;
+
+    }
+}
+int main()
+{
+    int n;
+
+    cout << " Enter number of elements in the Array" << endl;
+    cin >> n;
+    int* arr = new int[n];
+    cout << "Enter the elements of the Array" << endl;
+    fillArray(arr, n);
+    cout << "Elements of Linked List are:" << endl;
+    Node* head;
+    head= create(arr, n );
+    delete[] arr;
+    Display(head);
+    cout << "Number of nodes in linked list are:" << endl;
+    cout << Rcount(head) << endl;
+    cout << "The summation of the data's of node is:" <<endl<<Rsearch(head,3) << endl;
+    Node* p = new Node;
+    p->data = 23;
+    Insert(head, 0, p);
+    Display(head);
+
+   
+   
+    
+
+
+
+
+    
+    
+}
+
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
